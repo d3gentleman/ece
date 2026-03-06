@@ -33,6 +33,7 @@ interface SimulationStoreActions {
   distributeShares: () => void;
   computeShares: () => void;
   reconstructSecret: () => void;
+  prevStep: () => void;
   nextStep: () => void;
   resetSimulation: () => void;
 }
@@ -115,6 +116,41 @@ export const useSimulationStore = create<SimulationStore>((set, get) => ({
       result: reconstructSecretFromShares(state.shares),
       currentStep: "RECONSTRUCT",
     })),
+
+  prevStep: () =>
+    set((state) => {
+      switch (state.currentStep) {
+        case "RECONSTRUCT":
+          return {
+            ...state,
+            currentStep: "COMPUTE",
+          };
+        case "COMPUTE":
+          return {
+            ...state,
+            result: null,
+            currentStep: "DISTRIBUTE",
+          };
+        case "DISTRIBUTE":
+          return {
+            ...state,
+            nodes: [],
+            result: null,
+            currentStep: "SPLIT",
+          };
+        case "SPLIT":
+          return {
+            ...state,
+            shares: [],
+            nodes: [],
+            result: null,
+            currentStep: "INPUT",
+          };
+        case "INPUT":
+        default:
+          return state;
+      }
+    }),
 
   nextStep: () => {
     const state = get();

@@ -2,7 +2,6 @@ import ExplanationPanel from "@/components/ExplanationPanel";
 import GraphCanvas from "@/components/GraphCanvas";
 import InputPanel from "@/components/InputPanel";
 import SimulationLegend from "@/components/SimulationLegend";
-import StepController from "@/components/StepController";
 import StepExplanation from "@/components/StepExplanation";
 import StepProgressBar from "@/components/StepProgressBar";
 
@@ -29,7 +28,6 @@ export default function Home() {
         <section className="flex flex-col gap-4 sm:gap-5">
           <StepExplanation />
           <StepProgressBar />
-          <StepController />
         </section>
       </main>
     </div>

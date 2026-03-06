@@ -10,10 +10,16 @@ export default function InputPanel() {
   const setInputSecret = useSimulationStore((state) => state.setInputSecret);
   const setNodeCount = useSimulationStore((state) => state.setNodeCount);
   const generateShares = useSimulationStore((state) => state.generateShares);
+  const prevStep = useSimulationStore((state) => state.prevStep);
+  const nextStep = useSimulationStore((state) => state.nextStep);
+  const resetSimulation = useSimulationStore((state) => state.resetSimulation);
 
   const [secretInput, setSecretInput] = useState<string>(`${storeSecret}`);
   const [nodeCountInput, setNodeCountInput] = useState<string>(`${storeNodeCount}`);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [hasNextClicked, setHasNextClicked] = useState(false);
+  const canAdvance = currentStep !== "INPUT" && currentStep !== "RECONSTRUCT";
+  const canGoBack = hasNextClicked && currentStep !== "INPUT";
 
   const handleStart = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -35,6 +41,29 @@ export default function InputPanel() {
     setInputSecret(parsedSecret);
     setNodeCount(parsedNodeCount);
     generateShares();
+    setHasNextClicked(false);
+  };
+
+  const handleNext = () => {
+    if (!canAdvance) {
+      return;
+    }
+
+    setHasNextClicked(true);
+    nextStep();
+  };
+
+  const handleBack = () => {
+    if (!canGoBack) {
+      return;
+    }
+
+    prevStep();
+  };
+
+  const handleReset = () => {
+    setHasNextClicked(false);
+    resetSimulation();
   };
 
   return (
@@ -78,6 +107,35 @@ export default function InputPanel() {
         >
           Start Simulation
         </button>
+
+        <div className="sm:col-span-2 flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={handleBack}
+            disabled={!canGoBack}
+            className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+          >
+            Back
+          </button>
+          <button
+            type="button"
+            onClick={handleNext}
+            disabled={!canAdvance}
+            className="rounded-md bg-slate-700 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-600 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500"
+          >
+            Next
+          </button>
+        </div>
+
+        <div className="sm:col-span-2">
+          <button
+            type="button"
+            onClick={handleReset}
+            className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+          >
+            Reset
+          </button>
+        </div>
 
         {errorMessage ? (
           <p className="sm:col-span-2 text-sm text-red-600">{errorMessage}</p>
