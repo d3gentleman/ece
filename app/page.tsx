@@ -1,34 +1,30 @@
-import ExplanationPanel from "@/components/ExplanationPanel";
-import GraphCanvas from "@/components/GraphCanvas";
-import InputPanel from "@/components/InputPanel";
-import SimulationLegend from "@/components/SimulationLegend";
-import StepExplanation from "@/components/StepExplanation";
-import StepProgressBar from "@/components/StepProgressBar";
-
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-50 py-8 sm:py-10">
-      <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 sm:px-6">
-        <ExplanationPanel />
-
-        <section className="grid gap-4 sm:gap-5 lg:grid-cols-[280px_minmax(0,1fr)] xl:grid-cols-[280px_minmax(0,860px)_280px] xl:justify-center">
-          <div className="h-fit">
-            <InputPanel />
-          </div>
-
-          <div className="w-full xl:mx-auto">
-            <GraphCanvas />
-          </div>
-
-          <div className="h-fit lg:col-span-2 xl:col-span-1">
-            <SimulationLegend />
-          </div>
-        </section>
-
-        <section className="flex flex-col gap-4 sm:gap-5">
-          <StepExplanation />
-          <StepProgressBar />
-        </section>
+    <div className="flex flex-col items-center justify-center min-h-screen p-8 text-center bg-zinc-950 text-white font-sans">
+      <main className="flex flex-col gap-8 max-w-4xl mx-auto">
+        <h1 className="text-5xl font-extrabold tracking-tight">
+          Welcome to <span className="text-indigo-500">Arcium Explorer</span>
+        </h1>
+        <p className="text-xl text-zinc-400">
+          An interactive educational platform explaining the complex cryptographic infrastructure of the Arcium Network.
+        </p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          <a href="/visualizer" className="p-6 border border-zinc-800 rounded-2xl hover:bg-zinc-900 transition-colors group">
+            <h2 className="text-2xl font-bold mb-2 group-hover:text-indigo-400 transition-colors">MPC Visualizer &rarr;</h2>
+            <p className="text-zinc-500">Interactive step-by-step Multi-Party Computation execution.</p>
+          </a>
+          
+          <a href="/architecture" className="p-6 border border-zinc-800 rounded-2xl hover:bg-zinc-900 transition-colors group">
+            <h2 className="text-2xl font-bold mb-2 group-hover:text-indigo-400 transition-colors">Architecture &rarr;</h2>
+            <p className="text-zinc-500">Explore Arx nodes, clusters, and network sybil resistance.</p>
+          </a>
+          
+          <a href="/learn/secret-sharing" className="p-6 border border-zinc-800 rounded-2xl hover:bg-zinc-900 transition-colors group md:col-span-2">
+            <h2 className="text-2xl font-bold mb-2 group-hover:text-indigo-400 transition-colors">Start Learning &rarr;</h2>
+            <p className="text-zinc-500">Read concepts and dive deeper into the protocols powering Arcium.</p>
+          </a>
+        </div>
       </main>
     </div>
   );

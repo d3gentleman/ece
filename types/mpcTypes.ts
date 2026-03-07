@@ -1,9 +1,9 @@
 export type SimulationStep =
-  | "INPUT"
-  | "SPLIT"
-  | "DISTRIBUTE"
-  | "COMPUTE"
-  | "RECONSTRUCT";
+  | "DEFINITION"
+  | "COMMISSION"
+  | "MEMPOOL"
+  | "EXECUTION"
+  | "CALLBACK";
 
 export interface SecretShare {
   id: string;

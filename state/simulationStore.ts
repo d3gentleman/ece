@@ -1,26 +1,18 @@
 import { create } from "zustand";
-import {
-  assignSharesToNodeAssignments,
-  computeNodeAssignmentResult,
-} from "@/simulation/mpcSimulation";
-import {
-  reconstructSecret as reconstructSecretFromShares,
-  splitSecret,
-} from "@/simulation/secretSharing";
 import type { SimulationNode, SimulationStep } from "@/types/mpcTypes";
 
 const orderedSteps: SimulationStep[] = [
-  "INPUT",
-  "SPLIT",
-  "DISTRIBUTE",
-  "COMPUTE",
-  "RECONSTRUCT",
+  "DEFINITION",
+  "COMMISSION",
+  "MEMPOOL",
+  "EXECUTION",
+  "CALLBACK",
 ];
 
 interface SimulationStoreState {
   inputSecret: number;
   nodeCount: number;
-  shares: number[];
+  priorityFee: number;
   nodes: SimulationNode[];
   result: number | null;
   currentStep: SimulationStep;
@@ -29,10 +21,11 @@ interface SimulationStoreState {
 interface SimulationStoreActions {
   setInputSecret: (inputSecret: number) => void;
   setNodeCount: (nodeCount: number) => void;
-  generateShares: () => void;
-  distributeShares: () => void;
-  computeShares: () => void;
-  reconstructSecret: () => void;
+  setPriorityFee: (fee: number) => void;
+  commissionComputation: () => void;
+  enterMempool: () => void;
+  executeComputation: () => void;
+  triggerCallback: () => void;
   prevStep: () => void;
   nextStep: () => void;
   resetSimulation: () => void;
@@ -43,10 +36,10 @@ export type SimulationStore = SimulationStoreState & SimulationStoreActions;
 const initialState: SimulationStoreState = {
   inputSecret: 0,
   nodeCount: 3,
-  shares: [],
+  priorityFee: 100,
   nodes: [],
   result: null,
-  currentStep: "INPUT",
+  currentStep: "DEFINITION",
 };
 
 export const useSimulationStore = create<SimulationStore>((set, get) => ({
@@ -56,97 +49,68 @@ export const useSimulationStore = create<SimulationStore>((set, get) => ({
     set((state) => ({
       ...state,
       inputSecret,
-      shares: [],
       nodes: [],
       result: null,
-      currentStep: "INPUT",
+      currentStep: "DEFINITION",
     })),
 
   setNodeCount: (nodeCount) =>
     set((state) => ({
       ...state,
       nodeCount: Math.max(1, Math.floor(nodeCount)),
-      shares: [],
       nodes: [],
       result: null,
-      currentStep: "INPUT",
+      currentStep: "DEFINITION",
     })),
 
-  generateShares: () =>
+  setPriorityFee: (priorityFee) => set((state) => ({ ...state, priorityFee })),
+
+  commissionComputation: () =>
     set((state) => ({
       ...state,
-      shares: splitSecret(state.inputSecret, state.nodeCount),
-      nodes: [],
-      result: null,
-      currentStep: "SPLIT",
+      currentStep: "COMMISSION",
     })),
 
-  distributeShares: () =>
+  enterMempool: () =>
+    set((state) => ({
+      ...state,
+      currentStep: "MEMPOOL",
+    })),
+
+  executeComputation: () =>
     set((state) => {
-      const assignments = assignSharesToNodeAssignments(state.shares);
-      const nodes = Object.entries(assignments).map(([id, share]) => ({
-        id,
-        share,
+      // Mock nodes computing in a cluster
+      const nodes = Array.from({ length: state.nodeCount }).map((_, i) => ({
+        id: `node-${i}`,
+        share: Math.floor(Math.random() * 100), // Visual representation only
       }));
 
       return {
         ...state,
         nodes,
-        currentStep: "DISTRIBUTE",
+        currentStep: "EXECUTION",
       };
     }),
 
-  computeShares: () =>
-    set((state) => {
-      const nodeAssignments = Object.fromEntries(
-        state.nodes.map((node) => [node.id, node.share]),
-      );
-      const result = computeNodeAssignmentResult(nodeAssignments);
-
-      return {
-        ...state,
-        result,
-        currentStep: "COMPUTE",
-      };
-    }),
-
-  reconstructSecret: () =>
+  triggerCallback: () =>
     set((state) => ({
       ...state,
-      result: reconstructSecretFromShares(state.shares),
-      currentStep: "RECONSTRUCT",
+      result: state.inputSecret * 2, // Example dummy computation Output
+      currentStep: "CALLBACK",
     })),
 
   prevStep: () =>
     set((state) => {
       switch (state.currentStep) {
-        case "RECONSTRUCT":
-          return {
-            ...state,
-            currentStep: "COMPUTE",
-          };
-        case "COMPUTE":
-          return {
-            ...state,
-            result: null,
-            currentStep: "DISTRIBUTE",
-          };
-        case "DISTRIBUTE":
-          return {
-            ...state,
-            nodes: [],
-            result: null,
-            currentStep: "SPLIT",
-          };
-        case "SPLIT":
-          return {
-            ...state,
-            shares: [],
-            nodes: [],
-            result: null,
-            currentStep: "INPUT",
-          };
-        case "INPUT":
+        case "CALLBACK":
+          return { ...state, result: null, currentStep: "EXECUTION" };
+        case "EXECUTION":
+          return { ...state, nodes: [], currentStep: "MEMPOOL" };
+        case "MEMPOOL":
+          return { ...state, currentStep: "COMMISSION" };
+        case "COMMISSION":
+          return { ...state, currentStep: "DEFINITION" };
+        case "DEFINITION":
         default:
           return state;
       }
@@ -156,19 +120,19 @@ export const useSimulationStore = create<SimulationStore>((set, get) => ({
     const state = get();
 
     switch (state.currentStep) {
-      case "INPUT":
-        get().generateShares();
+      case "DEFINITION":
+        get().commissionComputation();
         return;
-      case "SPLIT":
-        get().distributeShares();
+      case "COMMISSION":
+        get().enterMempool();
         return;
-      case "DISTRIBUTE":
-        get().computeShares();
+      case "MEMPOOL":
+        get().executeComputation();
         return;
-      case "COMPUTE":
-        get().reconstructSecret();
+      case "EXECUTION":
+        get().triggerCallback();
         return;
-      case "RECONSTRUCT":
+      case "CALLBACK":
         set((current) => ({
           ...current,
           currentStep: orderedSteps[orderedSteps.length - 1],
