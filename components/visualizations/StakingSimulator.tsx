@@ -37,7 +37,7 @@ export function StakingSimulator() {
     <div className="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
       
       {/* Configuration Panel */}
-      <div className="lg:col-span-5 flex flex-col gap-8 bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
+      <div className="lg:col-span-5 flex flex-col gap-8 bg-black border border-zinc-800 rounded-2xl p-6 shadow-xl">
         
         {/* Node Operations */}
         <div>
@@ -115,7 +115,7 @@ export function StakingSimulator() {
       </div>
 
       {/* Visualizer output */}
-      <div className="lg:col-span-7 bg-[#0a0a0c] border border-zinc-800 rounded-2xl overflow-hidden relative flex flex-col p-6">
+      <div className="lg:col-span-7 bg-black border border-zinc-800 rounded-2xl overflow-hidden relative flex flex-col p-6 shadow-2xl">
         
         <div className="mb-6 flex justify-between items-center border-b border-zinc-800 pb-4">
            <div>
@@ -145,7 +145,7 @@ export function StakingSimulator() {
                 <span className="text-zinc-400 font-medium">Claimed Hardware Capacity</span>
                 <span className="text-blue-400 font-bold">{hardwareClaim} CUs</span>
              </div>
-             <div className="h-6 w-full bg-zinc-900 rounded-md overflow-hidden relative">
+             <div className="h-6 w-full bg-zinc-950 rounded-md overflow-hidden relative">
                 <motion.div 
                   className="absolute left-0 top-0 bottom-0 bg-blue-500/20 border-r-2 border-blue-500"
                   initial={false}
@@ -158,7 +158,7 @@ export function StakingSimulator() {
                 <span className="text-zinc-400 font-medium">Backed & Usable Capacity</span>
                 <span className={isFullyBacked ? "text-green-400 font-bold" : "text-orange-400 font-bold"}>{utilizedCapacity} CUs</span>
              </div>
-             <div className="h-6 w-full bg-zinc-900 rounded-md overflow-hidden relative flex">
+             <div className="h-6 w-full bg-zinc-950 rounded-md overflow-hidden relative flex">
                 <motion.div 
                   className="h-full bg-indigo-500 relative z-10"
                   initial={false}
@@ -181,7 +181,7 @@ export function StakingSimulator() {
            </div>
 
            {/* Feedback Box */}
-           <div className="p-4 rounded-xl border border-zinc-800 bg-zinc-900/50 text-sm text-zinc-400">
+           <div className="p-4 rounded-xl border border-zinc-800 bg-black text-sm text-zinc-400">
              {!isActivated ? (
                <p>The Node Operator must self-delegate at least {MIN_SELF_DELEGATION.toLocaleString()} ARC to activate the node. Without this, the node cannot join clusters or perform computations.</p>
              ) : !isFullyBacked ? (

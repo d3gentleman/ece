@@ -14,4 +14,4 @@ Only when a sufficient threshold of shares are combined can the original secret 
 
 - **Meaningless Individually**: A single secret share looks like entirely random data to the Arx node holding it. Even if a node operator inspects their machine's memory, they cannot learn the original data.
 - **Homomorphic Computation**: Arcium utilizes MPC protocols where nodes can actually _perform math directly on the encrypted shares_. If multiple nodes multiply their respective shares of "A" and "B", the reconstructed result will equal "A \* B", even though no node ever knew what A or B were!
-- **Threshold Security**: You no longer need to trust a single centralized entity with your data. You only need to trust that a majority threshold of the decentralized execution cluster is operating honestly. Even if a minority of nodes are compromised, the secret remains secure.
+- **Threshold Security**: You no longer need to trust a single centralized entity with your data. You only need to trust that a sufficient threshold of the decentralized execution cluster is operating honestly. Even if some nodes are compromised, the secret remains secure.

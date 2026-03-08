@@ -1,20 +1,20 @@
-# Multiparty eXecution Environments (MXEs)
+# MPC eXecution Environments (MXEs)
 
-A **Multiparty eXecution Environment (MXE)** is a customizable cryptographic standard that defines the rules, participation criteria, and execution logic of a specific decentralized network within Arcium.
+An **MPC eXecution Environment (MXE)** is a dedicated, compartmentalized environment where computations are defined and securely executed within the Arcium Network. MXEs are highly configurable, enabling Computation Customers to define their security requirements, encryption schemes, and performance parameters.
 
-You can think of an MXE as its own customizable "app-chain" specifically designed for encrypted execution.
+You can think of an MXE as a virtual machine specifically designed for encrypted execution.
 
 ## The Role of an MXE
 
-While **Arx Nodes** provide the computational hardware, the **MXE** provides the configuration and ruleset that govern how those nodes collaborate:
+While **Arx Nodes** provide the computational hardware running within **Clusters**, the **MXE** provides the computation definitions and configuration that govern how those nodes execute tasks:
 
-1. **Configuration**: Developers define parameters like the required hardware specifications, the number of nodes in the Cluster, and the specific cryptographic protocols to be used for computation.
-2. **Node Admission**: Arx Nodes opt-in to join specific MXEs. If they meet the hardware and staking criteria defined by the MXE, they become part of its **Execution Cluster**.
-3. **Smart Contracts**: An MXE is governed by its smart contracts deployed on the Solana blockchain. These contracts act as a supreme ledger that manages the mempool, tracks node participation, and facilitates pricing and priority fee markets.
+1. **Configuration**: Computation Customers define parameters like the required hardware specifications, the specific cryptographic protocols to be used, and the Cluster responsible for processing.
+2. **Cluster Admission**: MXEs must be admitted by a Cluster before computations can run. A Cluster can concurrently support multiple MXEs. If a single Arx Node rejects the admission of a given MXE to their Cluster, the MXE admission fails.
+3. **Onchain Orchestration**: MXE state management and computation orchestration are handled via Solana-based programs, which manage the mempool, track node participation, and facilitate pricing and priority fee markets.
 
 ## Joining vs Deploying
 
 When a developer wants to use Arcium for secure data processing, they have two choices:
 
-- Join an existing, globally accessible MXE with pre-established nodes and security guarantees.
-- Configure and deploy their own custom MXE to meet unique regulatory, jurisdictional, or performance requirements.
+- Join an existing, globally accessible Cluster with pre-established nodes and security guarantees.
+- Configure and deploy their own custom MXE and Cluster to meet unique regulatory, jurisdictional, or performance requirements.

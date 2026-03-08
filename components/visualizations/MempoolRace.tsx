@@ -80,7 +80,7 @@ export function MempoolRace() {
     <div className="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
       
       {/* Configuration Panel */}
-      <div className="lg:col-span-4 flex flex-col gap-6 bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
+      <div className="lg:col-span-4 flex flex-col gap-6 bg-black border border-zinc-800 rounded-2xl p-6 shadow-xl">
         <h2 className="text-xl font-bold flex items-center gap-2">
           <Coins className="text-indigo-400" />
           Queue Computation
@@ -126,10 +126,10 @@ export function MempoolRace() {
       </div>
 
       {/* Visualizer output */}
-      <div className="lg:col-span-8 bg-[#0a0a0c] border border-zinc-800 rounded-2xl overflow-hidden relative grid grid-cols-2 p-6 gap-6">
+      <div className="lg:col-span-8 bg-black border border-zinc-800 rounded-2xl overflow-hidden relative grid grid-cols-2 p-6 gap-6 shadow-2xl">
         
         {/* Memory Pool */}
-        <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-4 flex flex-col h-[500px]">
+        <div className="bg-black border border-zinc-800 rounded-xl p-4 flex flex-col h-[500px]">
            <div className="flex justify-between items-center mb-4">
              <h3 className="font-bold text-zinc-300 tracking-widest uppercase text-xs">Solana Mempool</h3>
              <span className="text-xs bg-zinc-800 px-2 py-1 rounded text-zinc-400 font-mono text-purple-400">Sorted by Fee</span>
@@ -144,7 +144,7 @@ export function MempoolRace() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, scale: 0.9 }}
-                    className="p-3 bg-zinc-950 border border-zinc-700 rounded-lg flex justify-between items-center"
+                    className="p-3 bg-black border border-zinc-800 rounded-lg flex justify-between items-center"
                   >
                      <span className="text-xs font-mono text-zinc-500">#{job.id}</span>
                      <span className="text-sm font-bold text-emerald-400">{job.fee} ARC</span>
@@ -165,7 +165,7 @@ export function MempoolRace() {
              <h3 className="font-bold text-indigo-300 tracking-widest uppercase text-xs">Active MXE Cluster</h3>
            </div>
            
-           <div className="flex-1 flex flex-col items-center justify-center relative border-2 border-dashed border-indigo-500/20 rounded-full w-full max-h-[350px] aspect-square mx-auto my-auto bg-indigo-500/5">
+           <div className="flex-1 flex flex-col items-center justify-center relative border-2 border-dashed border-indigo-500/20 rounded-full w-full max-h-[350px] aspect-square mx-auto my-auto bg-indigo-500/2">
               
               {/* Nodes in cluster */}
               {[0, 1, 2].map((i) => (

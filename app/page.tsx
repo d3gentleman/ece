@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8 text-center bg-zinc-950 text-white font-sans">
+    <div className="flex flex-col items-center justify-center min-h-screen p-8 text-center bg-black text-white font-sans">
       <main className="flex flex-col gap-8 max-w-4xl mx-auto">
         <h1 className="text-5xl font-extrabold tracking-tight">
           Welcome to <span className="text-indigo-500">Arcium Explorer</span>
