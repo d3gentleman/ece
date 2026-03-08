@@ -30,7 +30,7 @@ export const topics: Topic[] = [
   },
   {
     id: 'mxes',
-    title: 'Multipass Execution Environments (MXEs)',
+    title: 'MPC eXecution Environments (MXEs)',
     slug: 'mxes',
     description: 'Discover the secure off-chain execution environments that power the Arcium network.',
     order: 4,

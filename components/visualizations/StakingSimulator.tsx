@@ -49,7 +49,7 @@ export function StakingSimulator() {
           <div className="space-y-6">
             <div>
               <div className="flex justify-between items-center mb-1">
-                <label className="text-sm font-medium text-zinc-400">Self-Delegation Stake</label>
+                <label className="text-sm font-medium text-zinc-400">Minimum Self-Delegation</label>
                 <span className="text-xs font-mono text-indigo-400">{selfStake.toLocaleString()} ARC</span>
               </div>
               <input 
@@ -70,7 +70,7 @@ export function StakingSimulator() {
 
             <div>
               <div className="flex justify-between items-center mb-1">
-                <label className="text-sm font-medium text-zinc-400">Hardware Claim (Max Capacity)</label>
+                <label className="text-sm font-medium text-zinc-400">Node Hardware Claim</label>
                 <span className="text-xs font-mono text-blue-400">{hardwareClaim} CUs</span>
               </div>
               <input 
@@ -96,7 +96,7 @@ export function StakingSimulator() {
 
           <div>
             <div className="flex justify-between items-center mb-1">
-              <label className="text-sm font-medium text-zinc-400">Public Stake Delegated to You</label>
+              <label className="text-sm font-medium text-zinc-400">Third-Party Delegation</label>
               <span className="text-xs font-mono text-emerald-400">{thirdPartyStake.toLocaleString()} ARC</span>
             </div>
             <input 
@@ -155,7 +155,7 @@ export function StakingSimulator() {
              </div>
 
              <div className="flex justify-between text-sm mt-6">
-                <span className="text-zinc-400 font-medium">Backed & Usable Capacity</span>
+                <span className="text-zinc-400 font-medium">Active (Backed) Capacity</span>
                 <span className={isFullyBacked ? "text-green-400 font-bold" : "text-orange-400 font-bold"}>{utilizedCapacity} CUs</span>
              </div>
              <div className="h-6 w-full bg-zinc-950 rounded-md overflow-hidden relative flex">

@@ -1,0 +1,67 @@
+# Arcium Docs
+
+## Docs
+
+- [Configuration and Security](https://docs.arcium.com/arx-nodes/configuration-and-security.md)
+- [Overview](https://docs.arcium.com/arx-nodes/overview.md)
+- [Performance and Incentives](https://docs.arcium.com/arx-nodes/performance-and-incentives.md)
+- [Cluster Forking & Migration](https://docs.arcium.com/clusters/cluster-forking-and-migration.md)
+- [Incentivization](https://docs.arcium.com/clusters/incentivization.md)
+- [Node Priority List & Alternative Selection Criteria](https://docs.arcium.com/clusters/node-priority-list-and-alternative-selection-criteria.md)
+- [Overview](https://docs.arcium.com/clusters/overview.md)
+- [Permissioned Clusters](https://docs.arcium.com/clusters/permissioned-clusters.md)
+- [Sybil Resistance](https://docs.arcium.com/clusters/sybil-resistance.md)
+- [Censorship Resistance & Fault Handling](https://docs.arcium.com/computations/censorship-resistance-and-fault-handling.md)
+- [Computation Tasks](https://docs.arcium.com/computations/computation-tasks.md)
+- [Defining & Commissioning Computations](https://docs.arcium.com/computations/defining-and-commissioning-computations.md)
+- [Lifecycle of an Arcium Computation](https://docs.arcium.com/computations/lifecycle-of-an-arcium-computation.md)
+- [Pricing and Incentives](https://docs.arcium.com/computations/pricing-and-incentives.md)
+- [Intro to Arcium](https://docs.arcium.com/developers.md)
+- [Overview](https://docs.arcium.com/developers/arcis.md): Introduction to Arcis, a Rust-based framework for writing secure MPC circuits on the Arcium network
+- [Best practices](https://docs.arcium.com/developers/arcis/best-practices.md): Performance tips, debugging techniques, and testing strategies for Arcis circuits
+- [Input/Output](https://docs.arcium.com/developers/arcis/input-output.md): Working with Enc types for encrypted inputs and outputs in Arcis circuits
+- [Thinking in MPC](https://docs.arcium.com/developers/arcis/mental-model.md): Understand the mental model behind Arcis and why MPC circuits work differently from regular code
+- [Operations](https://docs.arcium.com/developers/arcis/operations.md): Complete reference for supported operations, expressions, and patterns in Arcis MPC circuits
+- [Primitives](https://docs.arcium.com/developers/arcis/primitives.md): Random number generation, cryptographic operations, and data packing in Arcis
+- [Quick Reference](https://docs.arcium.com/developers/arcis/quick-reference.md): A quick reference cheatsheet for Arcis syntax and patterns
+- [Types](https://docs.arcium.com/developers/arcis/types.md): Supported types in Arcis: integers, floats, arrays, structs, and encrypted types
+- [Computation Lifecycle](https://docs.arcium.com/developers/computation-lifecycle.md)
+- [Deployment](https://docs.arcium.com/developers/deployment.md)
+- [Overview](https://docs.arcium.com/developers/encryption.md)
+- [Sealing aka re-encryption](https://docs.arcium.com/developers/encryption/sealing.md)
+- [Hello World with Arcium](https://docs.arcium.com/developers/hello-world.md)
+- [Overview](https://docs.arcium.com/developers/installation.md)
+- [Arcup Version Manager](https://docs.arcium.com/developers/installation/arcup.md)
+- [Overview](https://docs.arcium.com/developers/js-client-library.md)
+- [Tracking callbacks](https://docs.arcium.com/developers/js-client-library/callback.md)
+- [Encrypting inputs](https://docs.arcium.com/developers/js-client-library/encryption.md)
+- [Current Limitations](https://docs.arcium.com/developers/limitations.md)
+- [Overview](https://docs.arcium.com/developers/migration.md)
+- [v0.1.x to v0.2.0](https://docs.arcium.com/developers/migration/migration-v0.1-to-v0.2.md)
+- [v0.2.x to v0.3.0](https://docs.arcium.com/developers/migration/migration-v0.2-to-v0.3.md)
+- [v0.3.x to v0.4.0](https://docs.arcium.com/developers/migration/migration-v0.3-to-v0.4.md)
+- [v0.4.x to v0.5.1](https://docs.arcium.com/developers/migration/migration-v0.4-to-v0.5.md)
+- [v0.5.x to v0.6.3](https://docs.arcium.com/developers/migration/migration-v0.5-to-v0.6.md)
+- [v0.6.3 to v0.7.0](https://docs.arcium.com/developers/migration/migration-v0.6.3-to-v0.7.0.md)
+- [v0.7.0 to v0.8.0](https://docs.arcium.com/developers/migration/migration-v0.7.0-to-v0.8.0.md)
+- [Node Setup](https://docs.arcium.com/developers/node-setup.md)
+- [Overview](https://docs.arcium.com/developers/program.md)
+- [Callback Accounts](https://docs.arcium.com/developers/program/callback-accs.md)
+- [Callback Type Generation](https://docs.arcium.com/developers/program/callback-type-generation.md)
+- [Computation Definition Accounts](https://docs.arcium.com/developers/program/computation-def-accs.md)
+- [Architecture Overview](https://docs.arcium.com/getting-started/architecture-overview.md)
+- [How To Use This Documentation](https://docs.arcium.com/getting-started/how-to-use-this-documentation.md)
+- [Network Stakeholders](https://docs.arcium.com/getting-started/network-stakeholders.md)
+- [Overview of the Arcium Network](https://docs.arcium.com/index.md)
+- [Basic Concepts](https://docs.arcium.com/introduction/basic-concepts.md)
+- [Key Features & Use Cases](https://docs.arcium.com/introduction/key-features-and-use-cases.md)
+- [MPC Protocols](https://docs.arcium.com/multi-party-execution-environments-mxes/mpc-protocols.md)
+- [MXE Encryption](https://docs.arcium.com/multi-party-execution-environments-mxes/mxe-encryption.md)
+- [Overview](https://docs.arcium.com/multi-party-execution-environments-mxes/overview.md)
+- [Multichain Expansion](https://docs.arcium.com/solana-integration-and-multichain-coordination/multichain-expansion.md)
+- [Solana Integration: Orchestration and Execution](https://docs.arcium.com/solana-integration-and-multichain-coordination/solana-integration-orchestration-and-execution.md)
+- [Overview](https://docs.arcium.com/staking/overview.md)
+
+## OpenAPI Specs
+
+- [openapi](https://docs.arcium.com/api-reference/openapi.json)

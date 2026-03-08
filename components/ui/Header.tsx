@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useProgressStore } from '@/state/progressStore';
-import { Zap, Code, LayoutDashboard, BrainCircuit, Activity, Pickaxe } from 'lucide-react';
+import { Zap, Code, LayoutDashboard, BrainCircuit, Activity, Pickaxe, Book } from 'lucide-react';
 import clsx from 'clsx';
 
 export function Header() {
@@ -17,6 +17,7 @@ export function Header() {
     { href: '/mxe-builder', label: 'MXE Builder', icon: Code },
     { href: '/staking', label: 'Staking', icon: Pickaxe },
     { href: '/mempool', label: 'Mempool Race', icon: Zap },
+    { href: '/glossary', label: 'Glossary', icon: Book },
   ];
 
   return (

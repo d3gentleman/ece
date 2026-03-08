@@ -58,7 +58,7 @@ const STEP_THEME = {
     text: 'text-cyan-400',
     border_cls: 'border-cyan-500',
     badge: 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40',
-    description: 'A Cluster of Arx Nodes receives secret shares and performs homomorphic MPC — computing directly on encrypted fragments without ever seeing the raw data.',
+    description: 'A Cluster of Arx Nodes receives secret shares and performs secure MPC — computing directly on encrypted fragments without ever seeing the raw data.',
   },
   CALLBACK: {
     label: 'Callback',
