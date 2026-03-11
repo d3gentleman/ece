@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSimulationStore } from '@/state/simulationStore';
 import { useProgressStore } from '@/state/progressStore';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -185,12 +185,13 @@ export function MPCVisualizer() {
   const [isPlaying, setIsPlaying] = useState(false);
   const { markActivityCompleted } = useProgressStore();
   const theme = STEP_THEME[currentStep as StepKey];
+  const prevStepRef = useRef<string>(currentStep);
 
-  // Auto-play
+  // Auto-play: advances every 5s, pauses at CALLBACK
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (isPlaying && currentStep !== 'CALLBACK') {
-      interval = setInterval(() => nextStep(), 2800);
+      interval = setInterval(() => nextStep(), 5000);
     } else if (currentStep === 'CALLBACK') {
       setIsPlaying(false);
       markActivityCompleted('mpc');
@@ -214,7 +215,7 @@ export function MPCVisualizer() {
   const currentIdx = stepKeys.indexOf(currentStep as StepKey);
 
   return (
-    <div className="flex flex-col gap-5 w-full max-w-5xl mx-auto">
+    <div className="flex flex-col gap-5 w-full max-w-7xl mx-auto">
 
       {/* ── Step Progress Bar ── */}
       <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${stepKeys.length}, 1fr)` }}>
@@ -292,9 +293,12 @@ export function MPCVisualizer() {
         </div>
       </motion.div>
 
+      {/* ── Main row: canvas + side panel ── */}
+      <div className="flex gap-6 items-stretch">
+
       {/* ── Main Canvas ── */}
       <motion.div
-        className="relative w-full rounded-2xl overflow-hidden border bg-black"
+        className="relative flex-1 min-w-[640px] rounded-2xl overflow-hidden border bg-black"
         style={{ height: H }}
         animate={{ borderColor: theme.border }}
         transition={{ duration: 0.4 }}
@@ -510,46 +514,72 @@ export function MPCVisualizer() {
         ))}
       </motion.div>
 
-      {/* ── Step Explanation + Legend Row ── */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* ── Right side: step info panel ── */}
+      <motion.div
+        key={currentStep}
+        className="w-52 shrink-0 flex flex-col rounded-2xl border p-5 overflow-hidden relative"
+        style={{ borderColor: theme.border, background: theme.bg }}
+        initial={{ opacity: 0, x: 10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
+      >
+        {/* Glow */}
+        <div
+          className="absolute -top-8 -right-8 w-32 h-32 rounded-full pointer-events-none"
+          style={{ background: theme.glow, filter: 'blur(36px)', opacity: 0.5 }}
+        />
 
-        {/* Explanation card */}
-        <motion.div
-          key={currentStep}
-          className="md:col-span-2 p-5 rounded-xl border"
-          style={{ borderColor: theme.border, background: theme.bg }}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35 }}
-        >
-          <div className="flex items-center gap-3 mb-3">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg text-black font-bold text-sm" style={{ background: theme.accent }}>
-              {theme.number}
-            </div>
-            <h3 className={`text-lg font-bold ${theme.text}`}>{theme.label}</h3>
+        {/* Step badge */}
+        <div className="relative z-10 flex items-center gap-3 mb-4">
+          <div
+            className="flex items-center justify-center w-9 h-9 rounded-xl font-black text-sm shrink-0"
+            style={{ background: theme.accent, color: '#000' }}
+          >
+            {theme.number}
           </div>
-          <p className="text-zinc-400 text-sm leading-relaxed">{theme.description}</p>
-        </motion.div>
-
-        {/* Color legend */}
-        <div className="p-5 rounded-xl border border-zinc-800 bg-black/40 shadow-xl">
-          <h4 className="text-xs uppercase tracking-widest text-zinc-500 font-semibold mb-3">Step Color Key</h4>
-          <div className="flex flex-col gap-2">
-            {stepKeys.map((key) => {
-              const t = STEP_THEME[key];
-              const Icon = t.icon;
-              const isCurr = key === currentStep;
-              return (
-                <div key={key} className={`flex items-center gap-2.5 transition-opacity ${isCurr ? 'opacity-100' : 'opacity-40'}`}>
-                  <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: t.accent, boxShadow: isCurr ? `0 0 6px ${t.accent}` : 'none' }} />
-                  <Icon size={11} style={{ color: t.accent }} />
-                  <span className="text-xs font-medium" style={{ color: isCurr ? t.accent : '#71717a' }}>{t.label}</span>
-                </div>
-              );
-            })}
+          <div>
+            <div className="text-[9px] uppercase tracking-widest text-zinc-500 font-semibold">
+              Step {theme.number} of {stepKeys.length}
+            </div>
+            <div className={`text-base font-bold leading-tight ${theme.text}`}>
+              {theme.label}
+            </div>
           </div>
         </div>
-      </div>
+
+        {/* Description */}
+        <p className="relative z-10 text-zinc-300 text-sm leading-relaxed flex-1">
+          {theme.description}
+        </p>
+
+        {/* All steps list at bottom */}
+        <div className="relative z-10 mt-5 pt-4 border-t border-zinc-800 flex flex-col gap-2">
+          {stepKeys.map((key, i) => {
+            const t = STEP_THEME[key];
+            const isCurr = key === currentStep;
+            const isDone = i < currentIdx;
+            return (
+              <div
+                key={key}
+                className={`flex items-center gap-2 text-xs font-medium transition-opacity ${isCurr ? 'opacity-100' : isDone ? 'opacity-50' : 'opacity-25'}`}
+              >
+                <div
+                  className="w-2 h-2 rounded-full shrink-0"
+                  style={{ background: t.accent, boxShadow: isCurr ? `0 0 6px ${t.accent}` : 'none' }}
+                />
+                <span style={{ color: isCurr ? t.accent : isDone ? '#a1a1aa' : '#52525b' }}>
+                  {t.label}
+                </span>
+                {isDone && <span className="ml-auto text-zinc-600 text-[10px]">✓</span>}
+              </div>
+            );
+          })}
+        </div>
+      </motion.div>
+
+      </div>{/* end main row */}
+
+
     </div>
   );
 }

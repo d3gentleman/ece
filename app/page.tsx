@@ -86,14 +86,30 @@ export default function Home() {
             Arcium <span className="text-indigo-500">Edu</span>
           </h1>
           
-          <p className="text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed mb-10">
             The interactive portal to the world's most advanced encrypted supercomputer. 
             Visual aids to understand the future of decentralized confidentiality.
           </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link 
+              href="/lesson" 
+              className="px-8 py-4 bg-indigo-600 text-white font-bold rounded-full hover:bg-indigo-500 transition-colors shadow-[0_0_30px_-5px_theme(colors.indigo.500)] flex items-center gap-2"
+            >
+              Start the Interactive Lesson
+              <ChevronRight size={20} />
+            </Link>
+            <a 
+              href="#modules" 
+              className="px-8 py-4 bg-zinc-900 border border-zinc-800 text-zinc-300 font-bold rounded-full hover:bg-zinc-800 transition-colors"
+            >
+              Browse All Modules
+            </a>
+          </div>
         </div>
 
         {/* Feature Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+        <div id="modules" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full pt-12 scroll-mt-10">
           {features.map((feature) => (
             <Link 
               key={feature.title}
